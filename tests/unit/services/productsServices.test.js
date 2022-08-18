@@ -61,20 +61,20 @@ describe('Testa a camada productServices', () => {
     
       it('Verifivca se retorna um objeto', async () => {
         sinon.stub(productsModel, 'queryProductsById').resolves(undefined);
-        const response = await productsService.getProductsById(999);
+        const response = await productsService.getProductsById(314);
         expect(response).to.be.an('object');
       });
       
       it('Verifica se retorna as chaves code e data', async () => {
         sinon.stub(productsModel, 'queryProductsById').resolves(undefined);
-        const response = await productsService.getProductsById(999);
+        const response = await productsService.getProductsById(314);
         expect(response).to.have.keys('code', 'data');
       });
 
       it('Verifica se retorna as chave data.message', async () => {
         sinon.stub(productsModel, 'queryProductsById').resolves(undefined);
         const response = await productsService.getProductsById(999);
-        expect(response.data).to.have.key('message');
+        expect(response.data).to.have.key('any');
       });
     });
 

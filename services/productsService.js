@@ -16,7 +16,12 @@ const getProductsById = async (id) => {
   return { code: 200, data: product };
 };
 
-// getProductsById(999).then((result) => console.log(result));
+const insertProduct = async (name) => {
+  const product = await productsModel.queryInsertProduct(name);
+  return { code: 201, data: product };
+};
+
+// insertProduct('arlisson').then((result) => console.log(result));
 // getAllProducts().then((result) => console.log(result));
 
-module.exports = { getAllProducts, getProductsById };
+module.exports = { getAllProducts, getProductsById, insertProduct };
