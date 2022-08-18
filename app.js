@@ -2,6 +2,7 @@ const express = require('express');
 const rescue = require('./middlewares/rescue');
 const middError = require('./middlewares/middlewareErro');
 const prodControl = require('./controllers/productsController');
+const middProdVal = require('./middlewares/middlewareProductsValidation');
 
 const app = express();
 app.use(express.json());
@@ -12,7 +13,7 @@ app.get('/', (_request, response) => {
 });
 
 app.get('/products', rescue(prodControl.getAll));
-app.post('/products', rescue(prodControl.insert));
+app.post('/products', middProdVal.validatName, rescue(prodControl.insert));
 app.get('/products/:id', rescue(prodControl.getAllById));
 app.use(middError);
 
