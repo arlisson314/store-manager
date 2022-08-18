@@ -48,20 +48,58 @@ describe('Testa a camada de prodoctsModel', () => {
 
 
   describe('Verifica o retorno da busca de um produto através do seu Id', async () => {
-    const product ={
-      id: 1,
-      name: "Martelo de Thor"
-    };
+    describe('Verifica em caso de sucesso', () => {
+       const product ={
+        id: 1,
+        name: "Martelo de Thor"
+      };
+
+      afterEach(() => sinon.restore());
+
+      it('Verifica se retorna um objeto', async () => {
+        sinon.stub(connection, 'execute').resolves([[product]]);
+        const result = await productsModel.queryProductsById(1);
+        expect(result).to.be.an('object');
+      });
+
+      it('Verifica se o objeto retornado possui as chaves id e name', async () => {
+        sinon.stub(connection, 'execute').resolves([[product]]);
+        const result = await productsModel.queryProductsById(1);
+        expect(result).to.have.keys('id', 'name');
+      });
+
+    });
+
+    describe('Verifica em caso de sucesso', () => {
+      afterEach(() => sinon.restore());
+
+      it('Verifica se retorna um objeto vazio em caso de falha', async () => {
+        sinon.stub(connection, 'execute').resolves([[]]);
+        const result = await productsModel.queryProductsById(314);
+        expect().to.be.undefined;
+      });
+    });
+      
+  });
+
+  describe('Verifica se é possivel inserir um produto no banco de dados', () => {
+    const name = {
+      name: 'pong'
+    }
 
     afterEach(() => sinon.restore());
 
-    it('verifica se retorna um objeto', async () => {
-      sinon.stub(connection, 'execute').resolves([[product]]);
-      const result = await productsModel.queryProductsById(1);
+    it('Verifica se retorna um objeto', async () => {
+      sinon.stub().resolves([{ name }]);
+      const result = await productsModel.queryInsertProduct('pong');
       expect(result).to.be.an('object');
     });
 
+    it('Verifica se retorna o objeto retornado possui as chaves id, name', async () => {
+      sinon.stub().resolves([{ name }]);
+      const result = await productsModel.queryInsertProduct('pong');
+      expect(result).to.have.keys('id', 'name');
+    });
   });
-
 
 });
