@@ -11,7 +11,7 @@ describe('Testa a camada de prodoctsModel', () => {
     // })
     
     // after(() => connection.execute.restore());
-    const Products = [
+    const products = [
       {
         id: 1,
         name: "Martelo de Thor"
@@ -30,7 +30,7 @@ describe('Testa a camada de prodoctsModel', () => {
     
     it('Verifica se retorna um array', async () => {
 
-      sinon.stub(connection, 'execute').resolves([Products]);
+      sinon.stub(connection, 'execute').resolves([products]);
 
       const result = await productsModel.queryAllProducts();
       expect(result).to.be.an('array');
@@ -38,7 +38,7 @@ describe('Testa a camada de prodoctsModel', () => {
 
     it('Verifica so o array possui 3 itens', async () => {
 
-      sinon.stub(connection, 'execute').resolves([Products]);
+      sinon.stub(connection, 'execute').resolves([products]);
       
       const result = await productsModel.queryAllProducts();
       expect(result).to.have.lengthOf(3);
@@ -47,8 +47,8 @@ describe('Testa a camada de prodoctsModel', () => {
   });
 
 
-  describe('verifica o retorno da busca de um produto através do seu Id', async () => {
-    const Product ={
+  describe('Verifica o retorno da busca de um produto através do seu Id', async () => {
+    const product ={
       id: 1,
       name: "Martelo de Thor"
     };
@@ -56,7 +56,7 @@ describe('Testa a camada de prodoctsModel', () => {
     afterEach(() => sinon.restore());
 
     it('verifica se retorna um objeto', async () => {
-      sinon.stub(connection, 'execute').resolves([[Product]]);
+      sinon.stub(connection, 'execute').resolves([[product]]);
       const result = await productsModel.queryProductsById(1);
       expect(result).to.be.an('object');
     });
