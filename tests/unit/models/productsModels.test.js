@@ -70,13 +70,13 @@ describe('Testa a camada de prodoctsModel', () => {
 
     });
 
-    describe('Verifica em caso de sucesso', () => {
+    describe('Verifica em caso de falha', () => {
       afterEach(() => sinon.restore());
 
       it('Verifica se retorna um objeto vazio em caso de falha', async () => {
         sinon.stub(connection, 'execute').resolves([[]]);
         const result = await productsModel.queryProductsById(314);
-        expect().to.be.undefined;
+        expect(result).to.be.undefined;
       });
     });
       
@@ -87,7 +87,7 @@ describe('Testa a camada de prodoctsModel', () => {
       name: 'pong'
     }
 
-    afterEach(() => sinon.restore());
+    afterEach(() => { sinon.restore() });
 
     it('Verifica se retorna um objeto', async () => {
       sinon.stub().resolves([{ name }]);
