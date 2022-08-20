@@ -17,8 +17,20 @@ const queryProductsById = async (id) => {
 const queryInsertProduct = async (name) => {
   const [{ insertId }] = await connection.execute(
     'INSERT INTO StoreManager.products (name) VALUES (?);', [name],
+    );
+    return { id: insertId, name };
+  };
+  
+const queryUpdateProductsById = async (name, id) => {
+ await connection.execute(
+    'UPDATE StoreManager.products SET name = ? WHERE id=?;', [name, id],
   );
-  return { id: insertId, name };
+  return { id, name };
 };
-
-module.exports = { queryAllProducts, queryProductsById, queryInsertProduct };
+// queryUpdateProductsById(1).then((result) => console.log(result));
+module.exports = {
+  queryAllProducts,
+  queryProductsById,
+  queryInsertProduct,
+  queryUpdateProductsById,
+};

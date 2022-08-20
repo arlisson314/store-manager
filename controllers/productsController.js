@@ -19,7 +19,15 @@ const insert = async (req, res) => {
   return res.status(code).json(data);
 };
 
-module.exports = { getAll, getAllById, insert };
+const updateById = async (req, res) => {
+  const { id } = req.params;
+  const { name } = req.body;
+  const { code, data } = await productsService.updateProductsById(name, id);
+
+  return res.status(code).json(data);
+};
+
+module.exports = { getAll, getAllById, insert, updateById };
 
 // getAll().then((result) => console.log(result));
 // getProductsById(999).then((result) => console.log(result));

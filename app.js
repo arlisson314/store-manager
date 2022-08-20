@@ -17,6 +17,10 @@ app.get('/', (_request, response) => {
 
 app.get('/products', rescue(prodControl.getAll));
 app.post('/products', middProdVal.validatName, rescue(prodControl.insert));
+app.put('/products/:id',
+  middProdVal.validatName,
+  rescue(prodControl.updateById));
+
 app.get('/products/:id', rescue(prodControl.getAllById));
 
 app.post('/sales',
@@ -25,6 +29,7 @@ app.post('/sales',
   middSalesVal.validatQuantity,
   middSalesVal.validatProductId2,
   rescue(salesController.insert));
+
 app.use(middError);
 
 app.get('/sales', rescue(salesController.getAll));

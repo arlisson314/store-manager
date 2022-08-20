@@ -21,7 +21,16 @@ const insertProduct = async (name) => {
   return { code: 201, data: product };
 };
 
+const updateProductsById = async (name, id) => {
+  const product = await productsModel.queryProductsById(id);
+  const result = await productsModel.queryUpdateProductsById(name, id);
+  if (!product || !result) {
+    return { code: 404, data: { message: 'Product not found' } };
+  }
+  return { code: 200, data: result };
+};
+
 // insertProduct('arlisson').then((result) => console.log(result));
 // getAllProducts().then((result) => console.log(result));
 
-module.exports = { getAllProducts, getProductsById, insertProduct };
+module.exports = { getAllProducts, getProductsById, insertProduct, updateProductsById };
