@@ -6,4 +6,15 @@ const insert = async (req, res) => {
   return res.status(code).json(data);
 };
 
-module.exports = { insert };
+const getAll = async (req, res) => {
+  const { code, data } = await saleService.getAllSales();
+  return res.status(code).json(data);
+};
+ 
+const getById = async (req, res) => {
+  const { id } = req.params;
+  const { code, data } = await saleService.getSalesById(id);
+  return res.status(code).json(data);
+};
+
+module.exports = { insert, getAll, getById };
