@@ -2,7 +2,10 @@ const express = require('express');
 const rescue = require('./middlewares/rescue');
 const middError = require('./middlewares/middlewareErro');
 const prodControl = require('./controllers/productsController');
+const salesController = require('./controllers/salesControlller');
+
 const middProdVal = require('./middlewares/middlewareProductsValidation');
+const middSalesVal = require('./middlewares/middlewareSale');
 
 const app = express();
 app.use(express.json());
@@ -15,6 +18,13 @@ app.get('/', (_request, response) => {
 app.get('/products', rescue(prodControl.getAll));
 app.post('/products', middProdVal.validatName, rescue(prodControl.insert));
 app.get('/products/:id', rescue(prodControl.getAllById));
+
+app.post('/sales',
+  middSalesVal.validatProductId,
+  middSalesVal.validatQuantityValue,
+  middSalesVal.validatQuantity,
+  middSalesVal.validatProductId2,
+  rescue(salesController.insert));
 app.use(middError);
 
 // não remova essa exportação, é para o avaliador funcionar

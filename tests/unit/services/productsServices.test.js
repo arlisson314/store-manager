@@ -12,16 +12,28 @@ describe('Testa a camada productServices', () => {
 
     afterEach(() => { sinon.restore() });
 
+    it('Verifica se retorna um objeto', async () => {
+      sinon.stub(productsModel, 'queryAllProducts').resolves(products);
+      const response = await productsService.getAllProducts();
+      expect(response).to.be.an('object');
+    });
+
     it('Verifica se retorna as chaves code e data', async () => {
       sinon.stub(productsModel, 'queryAllProducts').resolves(products);
       const response = await productsService.getAllProducts();
       expect(response).to.have.keys('code', 'data');
     });
 
-    it('Verifica se retorna um objeto', async () => {
+    it('Verifica se a chave data é um array', async () => {
       sinon.stub(productsModel, 'queryAllProducts').resolves(products);
       const response = await productsService.getAllProducts();
       expect(response.data).to.be.an('array');
+    });
+
+     it('Verifica se a chave data possui as chaves id e name', async () => {
+      sinon.stub(productsModel, 'queryAllProducts').resolves(products);
+      const response = await productsService.getAllProducts();
+      expect(response.data[0]).to.have.keys('id', 'name');
     });
   
   });
