@@ -29,17 +29,14 @@ describe('Testa a camada de prodoctsModel', () => {
     afterEach(() => sinon.restore());
     
     it('Verifica se retorna um array', async () => {
-
       sinon.stub(connection, 'execute').resolves([products]);
-
       const result = await productsModel.queryAllProducts();
       expect(result).to.be.an('array');
     });
 
     it('Verifica so o array possui 3 itens', async () => {
-
       sinon.stub(connection, 'execute').resolves([products]);
-      
+    
       const result = await productsModel.queryAllProducts();
       expect(result).to.have.lengthOf(3);
     });
@@ -90,13 +87,13 @@ describe('Testa a camada de prodoctsModel', () => {
     afterEach(() => { sinon.restore() });
 
     it('Verifica se retorna um objeto', async () => {
-      sinon.stub().resolves([{ name }]);
+      sinon.stub(connection, 'execute').resolves([{ name }]);
       const result = await productsModel.queryInsertProduct('pong');
       expect(result).to.be.an('object');
     });
 
     it('Verifica se retorna o objeto retornado possui as chaves id, name', async () => {
-      sinon.stub().resolves([{ name }]);
+      sinon.stub(connection, 'execute').resolves([{ name }]);
       const result = await productsModel.queryInsertProduct('pong');
       expect(result).to.have.keys('id', 'name');
     });
@@ -111,21 +108,9 @@ describe('Testa a camada de prodoctsModel', () => {
     afterEach(() => { sinon.restore() });
 
     it('Verifica se retorna um objeto', async () => {
-      sinon.stub().resolves(product);
+      sinon.stub(connection, 'execute').resolves(product);
       const result = await productsModel.queryUpdateProductsById(product.name, 1);
       expect(result).to.be.an('object');
     });
   });
-
-  describe('Verifica se a query é executada', () => {
-
-    afterEach(() => { sinon.restore() });
-
-    it('Verifica se retorna um objeto', async () => {
-      sinon.stub().resolves(product);
-      const result = await productsModel.queryDeleteById(1);
-      expect(result).to.be.an('object');
-    });
-  });
-
 });
