@@ -29,8 +29,22 @@ const updateProductsById = async (name, id) => {
   }
   return { code: 200, data: result };
 };
+const deleteProductById = async (id) => {
+  const product = await productsModel.queryProductsById(id);
+  if ([product].includes(undefined)) {
+    return { code: 404, data: { message: 'Product not found' } };
+  }
+  await productsModel.queryDeleteById(id);
+  return { code: 204 };
+};
 
 // insertProduct('arlisson').then((result) => console.log(result));
 // getAllProducts().then((result) => console.log(result));
 
-module.exports = { getAllProducts, getProductsById, insertProduct, updateProductsById };
+module.exports = {
+  getAllProducts,
+  getProductsById,
+  insertProduct,
+  updateProductsById,
+  deleteProductById,
+};

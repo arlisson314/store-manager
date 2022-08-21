@@ -17,11 +17,11 @@ app.get('/', (_request, response) => {
 
 app.get('/products', rescue(prodControl.getAll));
 app.post('/products', middProdVal.validatName, rescue(prodControl.insert));
+app.get('/products/:id', rescue(prodControl.getAllById));
 app.put('/products/:id',
   middProdVal.validatName,
   rescue(prodControl.updateById));
-
-app.get('/products/:id', rescue(prodControl.getAllById));
+app.delete('/products/:id', rescue(prodControl.deleteById));
 
 app.post('/sales',
   middSalesVal.validatProductId,
