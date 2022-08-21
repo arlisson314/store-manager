@@ -10,24 +10,26 @@ const queryInsertSales = async () => {
 };
 
 const queryAllSales = async () => {
-  const query = `SELECT sp.sale_id AS saleId, s.date, 
+  const [result] = await connection.execute(
+    `SELECT sp.sale_id AS saleId, s.date, 
     sp.product_id AS productId, sp.quantity
     FROM StoreManager.sales_products AS sp
     INNER JOIN StoreManager.sales AS s
     ON sp.sale_id = s.id
-    ORDER BY sp.sale_id, sp.product_id`;
-  const [result] = await connection.execute(query);
+    ORDER BY sp.sale_id, sp.product_id`,
+  );
   return result;
 };
 
 const querySalesById = async (id) => {
-  const queryById = `SELECT s.date, sp.product_id AS productId, sp.quantity
-  FROM StoreManager.sales_products AS sp
-  INNER JOIN StoreManager.sales AS s
-  ON sp.sale_id = s.id
-  AND s.id = ?
-  ORDER BY sp.sale_id, sp.product_id`;
-  const [result] = await connection.execute(queryById, [id]);
+  const [result] = await connection.execute(
+    `SELECT s.date, sp.product_id AS productId, sp.quantity
+    FROM StoreManager.sales_products AS sp
+    INNER JOIN StoreManager.sales AS s
+    ON sp.sale_id = s.id
+    AND s.id = ?
+    ORDER BY sp.sale_id, sp.product_id;`, [id],
+  );
   return result;
 };
 
