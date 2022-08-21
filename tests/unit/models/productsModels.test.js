@@ -102,4 +102,30 @@ describe('Testa a camada de prodoctsModel', () => {
     });
   });
 
+  describe('Verifica o produto que foj atualizado no banco de dados', () => {
+    const product = {
+      id: 1,
+      name: "sdewfsd"
+    }
+
+    afterEach(() => { sinon.restore() });
+
+    it('Verifica se retorna um objeto', async () => {
+      sinon.stub().resolves(product);
+      const result = await productsModel.queryUpdateProductsById(product.name, 1);
+      expect(result).to.be.an('object');
+    });
+  });
+
+  describe('Verifica se a query é executada', () => {
+
+    afterEach(() => { sinon.restore() });
+
+    it('Verifica se retorna um objeto', async () => {
+      sinon.stub().resolves(product);
+      const result = await productsModel.queryDeleteById(1);
+      expect(result).to.be.an('object');
+    });
+  });
+
 });
