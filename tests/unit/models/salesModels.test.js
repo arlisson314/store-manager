@@ -55,11 +55,6 @@ describe('Testa a camada salesModels', () => {
       expect(result).to.have.lengthOf(1);
     });
 
-    it('Verifica se retorna um objeto', async () => {
-      sinon.stub(connection, 'execute').resolves([sales]);
-      const result = await salesModel.querySalesById(1);
-      expect(result[0]).to.be.an('object');
-    });
-
   });
+
 });

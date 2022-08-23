@@ -29,12 +29,12 @@ app.post('/sales',
   middSalesVal.validatQuantity,
   middSalesVal.validatProductId2,
   rescue(salesController.insert));
-
-app.use(middError);
-
+  
 app.get('/sales', rescue(salesController.getAll));
+
 app.get('/sales/:id', rescue(salesController.getById));
 
+app.use(middError);
 // não remova essa exportação, é para o avaliador funcionar
 // você pode registrar suas rotas normalmente, como o exemplo acima
 // você deve usar o arquivo index.js para executar sua aplicação 

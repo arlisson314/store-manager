@@ -6,7 +6,7 @@ const insert = async (req, res) => {
   return res.status(code).json(data);
 };
 
-const getAll = async (req, res) => {
+const getAll = async (_req, res) => {
   const { code, data } = await saleService.getAllSales();
   return res.status(code).json(data);
 };

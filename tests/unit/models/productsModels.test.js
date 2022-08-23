@@ -113,4 +113,16 @@ describe('Testa a camada de prodoctsModel', () => {
       expect(result).to.be.an('object');
     });
   });
+
+  describe('Verifica se a query é executada', () => {
+
+    afterEach(() => { sinon.restore() });
+
+    it('Verifica se retorna um objeto', async () => {
+      sinon.stub(connection, 'execute').resolves([]);
+      const result = await productsModel.queryDeleteById(1);
+      expect(result).to.be.an('array');
+    });
+  });
+
 });

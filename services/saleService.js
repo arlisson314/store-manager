@@ -20,6 +20,6 @@ const getSalesById = async (id) => {
   }
   return { code: 200, data: result };
 };
-// getAllSales().then((result) => console.log(result));
+// isertSales().then((result) => console.log(result));
 
 module.exports = { isertSales, getAllSales, getSalesById };

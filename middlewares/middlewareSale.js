@@ -1,3 +1,5 @@
+const productModel = require('../models/productsModel');
+
 const validatProductId = (req, res, next) => {
   const result = req.body.every((k) => k.productId);
 
@@ -9,7 +11,6 @@ const validatProductId = (req, res, next) => {
 
 const validatQuantity = (req, res, next) => {
   const result = req.body.every((k) => k.quantity);
-
   if (!result) {
     return res.status(400).json({ message: '"quantity" is required' });
   }
@@ -17,33 +18,36 @@ const validatQuantity = (req, res, next) => {
 };
 
 const validatQuantityValue = (req, res, next) => {
-  const result = req.body.some((k) => k.quantity === 0 || k.quantity < 1);
+  // let quantity = true;
+  const result = req.body.every((k) => k.quantity <= 0);
 
   if (result) {
     return res.status(422).json({ message: '"quantity" must be greater than or equal to 1' });
   }
-
+  // req.body.forEach((element) => {
+  //   if (element.quantity <= 0) quantity = false;
+  // });
+  // if (!quantity) {
+  //   return res.status(422).json({ message: '"quantity" must be greater than or equal to 1' });
+  // }
   next();
 };
 
-const validatProductId2 = (req, res, next) => {
-  const result = req.body.every((k) => k.productId === undefined);
+const validatProductId2 = async (req, res, next) => {
+  let product = true;
+  const allProducts = await productModel.queryAllProducts();
+  // const result = req.body.every(async ({ productId }) => productModel
+  //   .queryProductsById(productId).id);
 
-  if (!result) {
+  req.body.forEach(async ({ productId }) => {
+    const result = allProducts.some(({ id }) => Number(productId) === Number(id));
+    if (!result) product = false;
+  });
+
+  if (!product) {
     return res.status(404).json({ message: 'Product not found' });
   }
   next();
 };
-
-// [
-//   {
-//     "productId": 1,
-//     "quantity": 1
-//   },
-//   {
-//     "productId": 2,
-//     "quantity": 5
-//   }
-// ]
 
 module.exports = { validatProductId, validatQuantity, validatQuantityValue, validatProductId2 };
