@@ -39,6 +39,15 @@ describe('Testa a camada salesService', () => {
         sinon.stub(salesModel, 'queryAllSales').resolves(response);
         const result = await saleService.getAllSales();
         expect(result).to.be.an('object');
+        expect(result).to.have.keys('code', 'data');
+        expect(result.data).to.be.an('object');
+        expect(result.code).to.be.an('number');
+      });
+
+      it('Testa se oobjeto retornado possui as chaves code e data', async () => {
+        sinon.stub(salesModel, 'queryAllSales').resolves(response);
+        const result = await saleService.getAllSales();
+        expect(result).to.have.keys('code', 'data');
       });
 
       describe('Testa em casa de falha', () => {
@@ -49,14 +58,17 @@ describe('Testa a camada salesService', () => {
           sinon.stub(salesModel, 'queryAllSales').resolves(response);
           const result = await saleService.getAllSales();
           expect(result).to.be.an('object');
+          expect(result).to.have.keys('code', 'data');
+          expect(result.data).to.be.an('object');
+          expect(result.code).to.be.equal(404);
         });
       });
 
-      describe('Testa ser retorna uma venda da tabela sales atrráves do seu id', () => {
-        describe('Testa em casa de sucesso', () => {
+      // describe('Testa ser retorna uma venda da tabela sales atrráves do seu id', () => {
+      //   describe('Testa em casa de sucesso', () => {
           
-        });
-      });
+      //   });
+      // });
         
     });
   });

@@ -1,10 +1,8 @@
 const connection = require('./connection');
 
 const queryInsertSales = async () => {
-  const date = '2022-01-01';
-  // const date = new Date();
   const [{ insertId }] = await connection.execute(
-    'INSERT INTO StoreManager.sales (date) VALUES (?);', [date],
+    'INSERT INTO StoreManager.sales (date) VALUES (NOW());',
   );
   return { id: insertId };
 };
