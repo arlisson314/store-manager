@@ -60,7 +60,7 @@ describe('Testa a camada salesService', () => {
           expect(result).to.be.an('object');
           expect(result).to.have.keys('code', 'data');
           expect(result.data).to.be.an('object');
-          expect(result.code).to.be.equal(404);
+          expect(result).to.include({code: 404});
         });
       });
 
